@@ -12,11 +12,11 @@ private int cantidad;
 public Cartera(){
 	super();
 }
-public Cartera(String dni, String empresa, boolean compaVenta,int cantidad) {
+public Cartera(String dni, String empresa, boolean compraVenta,int cantidad) {
 	super();
 	this.dni = dni;
 	this.empresa = empresa;
-	this.compraVenta = compaVenta;
+	this.compraVenta = compraVenta;
 	this.cantidad = cantidad;
 	
 }
