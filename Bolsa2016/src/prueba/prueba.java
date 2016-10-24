@@ -7,6 +7,6 @@ public class prueba {
 		return "prueba [getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
 				+ "]";
 	}
-
+//HOLA JULEN!
 
 }
