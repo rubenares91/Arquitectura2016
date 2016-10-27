@@ -5,19 +5,17 @@ public class Cartera {
 
 private String dni;
 private String empresa;
-private boolean compraVenta;
-private int cantidad;
+private int numAcciones;
 
 
 public Cartera(){
 	super();
 }
-public Cartera(String dni, String empresa, boolean compraVenta,int cantidad) {
+public Cartera(String dni, String empresa, int numAcciones) {
 	super();
 	this.dni = dni;
 	this.empresa = empresa;
-	this.compraVenta = compraVenta;
-	this.cantidad = cantidad;
+	this.numAcciones = numAcciones;
 	
 }
 public String getDni() {
@@ -32,17 +30,11 @@ public String getEmpresa() {
 public void setEmpresa(String empresa) {
 	this.empresa = empresa;
 }
-public boolean getCompraVenta() {
-	return compraVenta;
+public int getNumAcciones() {
+	return numAcciones;
 }
-public void setcompraVenta(boolean compraVenta) {
-	this.compraVenta = compraVenta;
-}
-public int getCantidad() {
-	return cantidad;
-}
-public void setCantidad(int cantidad) {
-	this.cantidad = cantidad;
+public void setNumAcciones(int numAcciones) {
+	this.numAcciones = numAcciones;
 }
 
 }

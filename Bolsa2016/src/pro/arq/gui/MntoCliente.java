@@ -250,7 +250,7 @@ public class MntoCliente extends javax.swing.JFrame{
 					});
 				}
 				pack();
-				this.setSize(400, 452);
+				this.setSize(475, 474);
 			} catch (Exception e) {
 			    //add your error handling code here
 				e.printStackTrace();

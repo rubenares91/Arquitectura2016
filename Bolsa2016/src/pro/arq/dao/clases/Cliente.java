@@ -7,19 +7,17 @@ public class Cliente {
 	private String nombre;
 	private String direccion;
 	private String email;
-	private int idCartera;
 	private Date fechaInscripcion;
 	
 	public Cliente(){
 		super();
 	}
-	public Cliente(String dni, String nombre, String direccion, String email, int idCartera, Date fechaInscripcion) {
+	public Cliente(String dni, String nombre, String direccion, String email, Date fechaInscripcion) {
 		super();
 		this.dni = dni;
 		this.nombre = nombre;
 		this.direccion = direccion;
 		this.email = email;
-		this.idCartera = idCartera;
 		this.fechaInscripcion = fechaInscripcion;
 	}
 	public String getDni() {
@@ -45,12 +43,6 @@ public class Cliente {
 	}
 	public void setEmail(String email) {
 		this.email = email;
-	}
-	public int getidCartera() {
-		return idCartera;
-	}
-	public void setIdCartera(int idCartera){
-		this.idCartera = idCartera;
 	}
 	public Date getFechaInscripcion() {
 		return fechaInscripcion;
