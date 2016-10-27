@@ -232,7 +232,7 @@ public class AltaClientes extends javax.swing.JFrame {
 					});
 				}
 				pack();
-				this.setSize(207, 174);
+				this.setSize(260, 314);
 			} catch (Exception e) {
 			    //add your error handling code here
 				e.printStackTrace();
