@@ -2,7 +2,7 @@ package pro.arq.dao;
 
 import java.sql.*;
 import java.util.*;
-//import java.util.Vector;
+import java.util.Date;
 
 import pro.arq.dao.clases.Cliente;
 import pro.arq.dao.clases.Cartera;
@@ -16,7 +16,7 @@ public class GestorBD {
     
     private String dataSource = "//localhost:3306/Bolsa2016";
     private String username = "root";
-    private String password = "";
+    private String password = "jani0704";
     private String driver = "com.mysql.jdbc.Driver";
     private String protocol = "jdbc:mysql";    
     
@@ -119,9 +119,9 @@ public class GestorBD {
         return numFilas;
     }
     
-    public Cartera obtenerCartera(String dni) throws SQLException{        
+    public Cartera obtenerCartera(String dni, String empresa) throws SQLException{        
         Cartera cartera = null;
-    	String select = "select * from CARTERAS where dni='" + dni + "'";// Sumarle que tambien la busque por empresa
+    	String select = "select * from CARTERAS where dni='" + dni + "' and empresa='" + empresa + "'";
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(select);
         if (rs.next()){
@@ -160,21 +160,32 @@ public class GestorBD {
         stmt.close();	                  
     }
     
-    public void eliminarCartera(String dni) throws SQLException{  //FALTA EL NOMBRE EMPRESA PARA ELIMINARLA
-       	String delete = "delete from CARTERAS where dni='" + dni + "'";
+    public void eliminarCartera(String dni, String empresa) throws SQLException{ 
+       	String delete = "delete from CARTERAS where dni='" + dni + "' and empresa='" + empresa + "'";
         Statement stmt = con.createStatement();
         stmt.executeUpdate(delete);
         stmt.close();	                  
     }
     
-    public void modificarCartera(String dni, Cartera cartera) throws SQLException{  //FALTA EL NOMBRE DE LA EMPRESA PARA MODIFICARLA
+    public void modificarCartera(String dni, String empresa, Cartera cartera) throws SQLException{  
         String update = "update CARTERAS set dni='" + cartera.getDni() + 
         				"', empresa='" + cartera.getEmpresa() +
         				"', nunAcciones='" + cartera.getNumAcciones() +
-        				"' where dni='" + dni + "'";
+        				"'where dni='" + dni + "' and empresa='" + empresa + "'";
         Statement stmt = con.createStatement();
         stmt.executeUpdate(update);
         stmt.close();                
+    }
+    
+    public void insertarCartera(Cartera cartera) throws SQLException{
+        String insert = "insert into CARTERAS " +
+                        "(dni, empresa, numAcciones) " +
+                        "VALUES ('" + cartera.getDni() +
+                        "','" + cartera.getEmpresa() +
+        				"','"  + cartera.getNumAcciones() + "')"; 
+        Statement stmt = con.createStatement();
+        stmt.executeUpdate(insert);
+        stmt.close();        
     }
     
     public Vector<Peticion> obtenerPeticiones() throws SQLException{        
@@ -197,9 +208,9 @@ public class GestorBD {
         return peticiones;
     }
     
-    public Peticion obtenerPeticion(String dni) throws SQLException{       //FALTA SUMARLE EL IDPETICION 
+    public Peticion obtenerPeticion(String dni, int idPeticion) throws SQLException{     
     	Peticion peticion = new Peticion();
-    	String select = "select * from PETICIONES where dni='" + dni + "'";
+    	String select = "select * from PETICIONES where dni='" + dni + "' and idPeticion='" + idPeticion + "'";
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(select);
         if (rs.next()){
@@ -224,8 +235,8 @@ public class GestorBD {
         stmt.close();	                  
     }
     
-    public void eliminarPeticion(String dni) throws SQLException{  //FALTA EL NOMBRE EMPRESA PARA ELIMINARLA
-       	String delete = "delete from PETICIONES where dni='" + dni + "'";
+    public void eliminarPeticion(String dni, String empresa) throws SQLException{ 
+       	String delete = "delete from PETICIONES where dni='" + dni + "' and empresa='" + empresa + "'";
         Statement stmt = con.createStatement();
         stmt.executeUpdate(delete);
         stmt.close();	                  
@@ -262,9 +273,9 @@ public class GestorBD {
         return ibexs;
     }
     
-    public Ibex35 obtenerIbex(String empresa) throws SQLException{       //FALTA SUMARLE la fecha 
+    public Ibex35 obtenerIbex(String empresa, Date fechaCierre) throws SQLException{
     	Ibex35 ibex35 = new Ibex35();
-    	String select = "select * from IBEXS where empresa ='" + empresa + "'";
+    	String select = "select * from IBEXS where empresa='" + empresa + "' and fechaCierre='" + fechaCierre + "'";
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(select);
         if (rs.next()){
@@ -284,8 +295,8 @@ public class GestorBD {
         stmt.close();	                  
     }
     
-    public void eliminarIbex35(String empresa) throws SQLException{  //FALTA EL NOMBRE EMPRESA PARA ELIMINARLA
-       	String delete = "delete from IBEXS where empres='" + empresa + "'";
+    public void eliminarIbex35(String empresa, Date fechaCierre) throws SQLException{  
+       	String delete = "delete from IBEXS where empresa='" + empresa + "' and fechaCierre='" + fechaCierre + "'";
         Statement stmt = con.createStatement();
         stmt.executeUpdate(delete);
         stmt.close();	                  
@@ -302,11 +313,11 @@ public class GestorBD {
         stmt.close();        
     }
     
-    public void modificarIbex35(String empresa, Ibex35 ibex35) throws SQLException{  //FALTA EL NOMBRE DE la fecha PARA MODIFICARLA
+    public void modificarIbex35(String empresa, Date fechaCierre, Ibex35 ibex35) throws SQLException{  
         String update = "update IBEXS set EMPRESA='" + ibex35.getEmpresa() + 
         				"', fechaCierre='" + ibex35.getFechaCierre() +
         				"', valorAccion='" + ibex35.getValorAccion() +
-        				"' where empresa='" + empresa + "'";
+        				"' where empresa='" + empresa + "' and fechaCierre='" + fechaCierre + "'";
         Statement stmt = con.createStatement();
         stmt.executeUpdate(update);
         stmt.close();                
@@ -314,11 +325,12 @@ public class GestorBD {
     
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
     	GestorBD gb = new GestorBD();
-    	java.util.Date fecha = new java.util.Date();
-    	
+    	//java.util.Date fecha = new java.util.Date();
     	gb.conectar();
-    	Cliente cliente= new Cliente("12345678a","julen","julenar","dir",fecha);
-    	gb.insertarCliente(cliente);
+    	//Cliente cliente= new Cliente("12345678a","julen","julenar","dir",fecha);
+    	Cartera cartera = new Cartera("ho", "jl", 3);
+    	gb.insertarCartera(cartera);
+    	//gb.insertarCliente(cliente);
     	gb.desconectar();
     }
     }
