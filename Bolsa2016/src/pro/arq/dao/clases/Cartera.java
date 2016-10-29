@@ -1,6 +1,6 @@
 package pro.arq.dao.clases;
 //
-
+//
 public class Cartera {
 
 private String dni;
