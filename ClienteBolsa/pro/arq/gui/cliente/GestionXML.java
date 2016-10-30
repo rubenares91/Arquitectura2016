@@ -2,14 +2,17 @@ package pro.arq.gui.cliente;
 
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
 
 import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
-import pro.arq.dao.clases.Ibex35;
+import pro.arq.dao.clases.xsd.Ibex35;
+import pro.arq.dao.clases.xsd.Indice;
 
 
 
@@ -17,7 +20,7 @@ public class GestionXML {
 	
 	private static final String IBEX35_XML = "./files/ibex35-jaxb.xml";
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws JAXBException, IOException{
 		try{
 			
 		ArrayList<Ibex35> carteraValores = new ArrayList<Ibex35>();
@@ -35,23 +38,20 @@ public class GestionXML {
 		empr2.setValorAccion((float) 26.22);
 		carteraValores.add(empr2);
 
-		// create bookstore, assigning book
-//		Bookstore bookstore = new Bookstore();
-//		bookstore.setName("Fraport Bookstore");
-//		bookstore.setLocation("Frankfurt Airport");
-//		bookstore.setUrl("www.allbooks.com");
-//		bookstore.setBookList(bookList);
+		Indice indice = new Indice();
+		indice.setNombre("IBEX35");
+		indice.setEmpresas(carteraValores);
 
 		// create JAXB context and instantiate marshaller
 		JAXBContext context = JAXBContext.newInstance(Ibex35.class);
 		Marshaller m = context.createMarshaller();
 		m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-		m.marshal(carteraValores, System.out);
+		m.marshal(indice, System.out);
 
 		Writer w = null;
 		try {
 			w = new FileWriter(IBEX35_XML);
-			m.marshal(carteraValores, w);
+			m.marshal(indice, w);
 		} finally {
 			try {
 				w.close();
@@ -63,17 +63,17 @@ public class GestionXML {
 		m.marshal(empr2, System.out);
 
 		// get variables from our xml file, created before
-//		System.out.println();
-//		System.out.println("Output from our XML File: ");
-//		Unmarshaller um = context.createUnmarshaller();
-//		Ibex35 carteraValores2 = (Ibex35) um.unmarshal(new FileReader(
-//				IBEX35_XML));
-//
-//		for (int i = 0; i < carteraValores2.getBookList().toArray().length; i++) {
-//			System.out.println("Book " + (i + 1) + ": "
-//					+ carteraValores2.getBookList().get(i).getName() + " from "
-//					+ carteraValores2.getBookList().get(i).getAuthor());
-//		}
+		System.out.println();
+		System.out.println("Output from our XML File: ");
+		Unmarshaller um = context.createUnmarshaller();
+		Indice indice2 = (Indice) um.unmarshal(new FileReader(
+				IBEX35_XML));
+
+		for (int i = 0; i < indice2.getEmpresas().toArray().length; i++) {
+			System.out.println("Empresa " + (i + 1) + ": "
+					+ indice2.getEmpresas().get(i).getEmpresa() + " = "
+					+ indice2.getEmpresas().get(i).getValorAccion());
+		}
 		
 		} catch (Exception e) {
 		}

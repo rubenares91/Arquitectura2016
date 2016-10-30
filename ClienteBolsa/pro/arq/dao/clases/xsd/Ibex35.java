@@ -8,10 +8,16 @@
 
 package pro.arq.dao.clases.xsd;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
 /**
  * Ibex35 bean class
  */
 @SuppressWarnings({ "unchecked", "unused" })
+
+@XmlRootElement(name = "empresa")
+@XmlType(propOrder = { "empresa", "fechaCierre", "valorAccion" })
 
 public class Ibex35 implements org.apache.axis2.databinding.ADBBean {
 	/*
