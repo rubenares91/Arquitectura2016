@@ -8,36 +8,33 @@
 
 package pro.arq.service;
 
-public class BolsaSWClassNotFoundExceptionException extends java.lang.Exception{
+public class BolsaSWClassNotFoundExceptionException extends java.lang.Exception {
 
-    private static final long serialVersionUID = 1477660931988L;
-    
-    private pro.arq.service.BolsaSWClassNotFoundException faultMessage;
+	private static final long serialVersionUID = 1477660931988L;
 
-    
-        public BolsaSWClassNotFoundExceptionException() {
-            super("BolsaSWClassNotFoundExceptionException");
-        }
+	private pro.arq.service.BolsaSWClassNotFoundException faultMessage;
 
-        public BolsaSWClassNotFoundExceptionException(java.lang.String s) {
-           super(s);
-        }
+	public BolsaSWClassNotFoundExceptionException() {
+		super("BolsaSWClassNotFoundExceptionException");
+	}
 
-        public BolsaSWClassNotFoundExceptionException(java.lang.String s, java.lang.Throwable ex) {
-          super(s, ex);
-        }
+	public BolsaSWClassNotFoundExceptionException(java.lang.String s) {
+		super(s);
+	}
 
-        public BolsaSWClassNotFoundExceptionException(java.lang.Throwable cause) {
-            super(cause);
-        }
-    
+	public BolsaSWClassNotFoundExceptionException(java.lang.String s, java.lang.Throwable ex) {
+		super(s, ex);
+	}
 
-    public void setFaultMessage(pro.arq.service.BolsaSWClassNotFoundException msg){
-       faultMessage = msg;
-    }
-    
-    public pro.arq.service.BolsaSWClassNotFoundException getFaultMessage(){
-       return faultMessage;
-    }
+	public BolsaSWClassNotFoundExceptionException(java.lang.Throwable cause) {
+		super(cause);
+	}
+
+	public void setFaultMessage(pro.arq.service.BolsaSWClassNotFoundException msg) {
+		faultMessage = msg;
+	}
+
+	public pro.arq.service.BolsaSWClassNotFoundException getFaultMessage() {
+		return faultMessage;
+	}
 }
-    

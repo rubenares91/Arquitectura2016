@@ -8,36 +8,33 @@
 
 package pro.arq.service;
 
-public class BolsaSWSQLExceptionException extends java.lang.Exception{
+public class BolsaSWSQLExceptionException extends java.lang.Exception {
 
-    private static final long serialVersionUID = 1477660931965L;
-    
-    private pro.arq.service.BolsaSWSQLException faultMessage;
+	private static final long serialVersionUID = 1477660931965L;
 
-    
-        public BolsaSWSQLExceptionException() {
-            super("BolsaSWSQLExceptionException");
-        }
+	private pro.arq.service.BolsaSWSQLException faultMessage;
 
-        public BolsaSWSQLExceptionException(java.lang.String s) {
-           super(s);
-        }
+	public BolsaSWSQLExceptionException() {
+		super("BolsaSWSQLExceptionException");
+	}
 
-        public BolsaSWSQLExceptionException(java.lang.String s, java.lang.Throwable ex) {
-          super(s, ex);
-        }
+	public BolsaSWSQLExceptionException(java.lang.String s) {
+		super(s);
+	}
 
-        public BolsaSWSQLExceptionException(java.lang.Throwable cause) {
-            super(cause);
-        }
-    
+	public BolsaSWSQLExceptionException(java.lang.String s, java.lang.Throwable ex) {
+		super(s, ex);
+	}
 
-    public void setFaultMessage(pro.arq.service.BolsaSWSQLException msg){
-       faultMessage = msg;
-    }
-    
-    public pro.arq.service.BolsaSWSQLException getFaultMessage(){
-       return faultMessage;
-    }
+	public BolsaSWSQLExceptionException(java.lang.Throwable cause) {
+		super(cause);
+	}
+
+	public void setFaultMessage(pro.arq.service.BolsaSWSQLException msg) {
+		faultMessage = msg;
+	}
+
+	public pro.arq.service.BolsaSWSQLException getFaultMessage() {
+		return faultMessage;
+	}
 }
-    
