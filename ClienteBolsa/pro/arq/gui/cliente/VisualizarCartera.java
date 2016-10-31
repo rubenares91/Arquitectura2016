@@ -16,7 +16,6 @@ public class VisualizarCartera {
 	private final JScrollPane scrollPane = new JScrollPane();
 	private JTable table;
 	private JButton btnEliminar;
-	private JButton btnModificar;
 	private JButton btnAbiriPeticionesPendientes;
 
 	/**
@@ -83,10 +82,6 @@ public class VisualizarCartera {
 		btnEliminar = new JButton("Eliminar");
 		btnEliminar.setBounds(335, 228, 89, 23);
 		frmCarteraDeAcciones.getContentPane().add(btnEliminar);
-		
-		btnModificar = new JButton("Modificar");
-		btnModificar.setBounds(237, 228, 89, 23);
-		frmCarteraDeAcciones.getContentPane().add(btnModificar);
 		
 		btnAbiriPeticionesPendientes = new JButton("Gestion peticiones");
 		btnAbiriPeticionesPendientes.setBounds(10, 221, 126, 30);
