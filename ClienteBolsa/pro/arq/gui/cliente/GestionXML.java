@@ -21,8 +21,8 @@ public class GestionXML {
 	private static final String IBEX35_XML = "./files/ibex35-jaxb.xml";
 
 	public static void main(String[] args) throws JAXBException, IOException{
-		try{
-			
+		
+		// Primero rellenamos los objetos Java y generamos un XML
 		ArrayList<Ibex35> carteraValores = new ArrayList<Ibex35>();
 
 		// creamos empresas
@@ -42,7 +42,7 @@ public class GestionXML {
 		indice.setNombre("IBEX35");
 		indice.setEmpresas(carteraValores);
 
-		// create JAXB context and instantiate marshaller
+		// Creamos el contexto e instanciamos el marshaller
 		JAXBContext context = JAXBContext.newInstance(Ibex35.class);
 		Marshaller m = context.createMarshaller();
 		m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
@@ -58,11 +58,8 @@ public class GestionXML {
 			} catch (Exception e) {
 			}
 		}
-		System.out.println();
-		//System.out.println("And also only one book: ");
-		m.marshal(empr2, System.out);
 
-		// get variables from our xml file, created before
+		// Ahora leemos el XML e instanciamos las clases Java
 		System.out.println();
 		System.out.println("Output from our XML File: ");
 		Unmarshaller um = context.createUnmarshaller();
@@ -73,9 +70,6 @@ public class GestionXML {
 			System.out.println("Empresa " + (i + 1) + ": "
 					+ indice2.getEmpresas().get(i).getEmpresa() + " = "
 					+ indice2.getEmpresas().get(i).getValorAccion());
-		}
-		
-		} catch (Exception e) {
 		}
 
 	}
