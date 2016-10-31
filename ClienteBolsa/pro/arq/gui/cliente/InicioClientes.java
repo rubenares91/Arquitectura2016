@@ -171,12 +171,8 @@ public class InicioClientes {
 		lblClientes.setBounds(21, 11, 95, 23);
 		panel.add(lblClientes);
 		
-		JButton btnModificar = new JButton("Modificar");
-		btnModificar.setBounds(258, 420, 95, 29);
-		panel.add(btnModificar);
-		
 		JButton btnEliminar = new JButton("Eliminar");
-		btnEliminar.setBounds(153, 420, 95, 29);
+		btnEliminar.setBounds(258, 420, 95, 29);
 		panel.add(btnEliminar);
 		
 		JButton btnVerCartera = new JButton("Ver Cartera");
