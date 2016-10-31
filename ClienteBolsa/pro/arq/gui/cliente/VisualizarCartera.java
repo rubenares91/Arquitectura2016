@@ -7,6 +7,14 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import pro.arq.dao.clases.xsd.MiModeloTabla;
+import pro.arq.service.BolsaSWStub;
+import pro.arq.service.ObtenerCarteras;
+import pro.arq.service.ObtenerCarterasResponse;
+import pro.arq.service.ObtenerClientes;
+import pro.arq.service.ObtenerClientesResponse;
+
 import javax.swing.border.TitledBorder;
 import javax.swing.JButton;
 
@@ -27,6 +35,30 @@ public class VisualizarCartera {
 				try {
 					VisualizarCartera window = new VisualizarCartera();
 					window.frmCarteraDeAcciones.setVisible(true);
+					///STUB
+					BolsaSWStub stub;
+		        	stub = new BolsaSWStub("http://localhost:8080/axis2/services/BolsaSW");
+		        	
+		        	ObtenerCarteras obCl = new ObtenerCarteras();
+		        	ObtenerCarterasResponse seResp = stub.obtenerCarteras(obCl);
+		        	pro.arq.dao.clases.xsd.Cartera[] cartera = seResp.get_return();
+		            MiModeloTabla modelo = new MiModeloTabla();
+		            Object cart= "dni";modelo.addColumn(cart);
+		            cart= "empresa"; modelo.addColumn(cart);
+		            cart= "numAcciones"; modelo.addColumn(cart);
+		            int i=0;
+		            int j=cartera.length;
+		            while (i<j){
+		            	  		  pro.arq.dao.clases.xsd.Cartera bolsa= cartera[i];
+		                          String dni=bolsa.getDni();
+		                          String empresa=bolsa.getEmpresa();
+		                          int nacciones=bolsa.getNumAcciones();
+		                          Object[] dat={dni,empresa,nacciones};
+		                          modelo.addRow(dat);
+		                          i++;
+		              }
+		          JTable table2 = new JTable();
+		          table2.setModel(modelo);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

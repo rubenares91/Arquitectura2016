@@ -1,15 +1,33 @@
 package pro.arq.gui.cliente;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
+
+import org.apache.axis2.AxisFault;
+
+import pro.arq.dao.clases.xsd.Cliente;
+import pro.arq.dao.clases.xsd.MiModeloTabla;
+import pro.arq.service.BolsaSWSQLExceptionException;
+import pro.arq.service.BolsaSWStub;
+import pro.arq.service.ObtenerClientes;
+import pro.arq.service.ObtenerClientesResponse;
+import pro.arq.service.BolsaSWStub;
+
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 
-public class InsertarCliente {
+public class InsertarCliente extends javax.swing.JFrame {
 
 	private JFrame frmAadirCliente;
 	private JTextField textField;
@@ -26,6 +44,7 @@ public class InsertarCliente {
 			public void run() {
 				try {
 					InsertarCliente window = new InsertarCliente();
+					window.setLocationRelativeTo(null);
 					window.frmAadirCliente.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -50,65 +69,116 @@ public class InsertarCliente {
 		frmAadirCliente.setBounds(100, 100, 450, 293);
 		frmAadirCliente.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmAadirCliente.getContentPane().setLayout(null);
-		
+
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "Cliente nuevo", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel.setBounds(0, 0, 434, 251);
 		frmAadirCliente.getContentPane().add(panel);
 		panel.setLayout(null);
-		
+
 		JLabel lblDni = new JLabel("DNI");
 		lblDni.setBounds(32, 38, 46, 14);
 		panel.add(lblDni);
-		
+
 		JLabel lblEmpresa = new JLabel("Empresa");
 		lblEmpresa.setBounds(210, 38, 46, 14);
 		panel.add(lblEmpresa);
-		
+
 		JLabel lblDireccin = new JLabel("Direcci\u00F3n");
 		lblDireccin.setBounds(32, 97, 46, 14);
 		panel.add(lblDireccin);
-		
+
 		JLabel lblEmail = new JLabel("Email");
 		lblEmail.setBounds(210, 97, 46, 14);
 		panel.add(lblEmail);
-		
+
 		JLabel lblFechaDeInscripcion = new JLabel("Fecha de inscripcion");
 		lblFechaDeInscripcion.setBounds(32, 161, 110, 14);
 		panel.add(lblFechaDeInscripcion);
-		
+
 		JButton btnNewButton = new JButton("A\u00F1adir");
 		btnNewButton.setBounds(320, 215, 89, 23);
 		panel.add(btnNewButton);
-		
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				System.out.println("btnNewButton.actionPerformed, event=" + evt);
+				// TODO add your code for btnVolver.actionPerformed
+				botonAnyadir();
+			}
+		});
+
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.setBounds(210, 215, 89, 23);
 		panel.add(btnVolver);
-		
+		btnVolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				System.out.println("btnVolver.actionPerformed, event=" + evt);
+				// TODO add your code for btnVolver.actionPerformed
+				botonVolver();
+			}
+		});
+
 		textField = new JTextField();
 		textField.setBounds(88, 35, 100, 20);
 		panel.add(textField);
 		textField.setColumns(10);
-		
+
 		textField_1 = new JTextField();
 		textField_1.setBounds(266, 35, 143, 20);
 		panel.add(textField_1);
 		textField_1.setColumns(10);
-		
+
 		textField_2 = new JTextField();
 		textField_2.setBounds(88, 94, 100, 20);
 		panel.add(textField_2);
 		textField_2.setColumns(10);
-		
+
 		textField_3 = new JTextField();
 		textField_3.setBounds(266, 94, 143, 20);
 		panel.add(textField_3);
 		textField_3.setColumns(10);
-		
+
 		textField_4 = new JTextField();
 		textField_4.setBounds(154, 158, 102, 20);
 		panel.add(textField_4);
 		textField_4.setColumns(10);
+	}
+
+	private void botonVolver() {
+		System.out.println("prueba");
+		System.exit(0);
+	}
+
+	private void botonAnyadir() {
+		try {
+
+			Cliente cli = new Cliente();
+			cli.setDni(textField.getText());
+			cli.setNombre(textField_1.getText());
+			cli.setDireccion(textField_2.getText());
+			cli.setEmail(textField_3.getText());
+			cli.setFechaInscripcion(new Date());
+
+			BolsaSWStub stub = new BolsaSWStub("http://localhost:8080/axis2/services/BolsaSW");
+
+			pro.arq.service.InsertarCliente addClient = new pro.arq.service.InsertarCliente();
+			addClient.setCliente(cli);
+
+			// InsertarClienteResponse seResp = stub.insertarCliente(addClient);
+			// pro.arq.dao.clases.xsd.Cliente[] clientes = seResp.get_return();
+
+			stub.insertarCliente(addClient);
+
+		} catch (AxisFault e) {
+			System.out.println("#AxisFault (addClient) " + e.getMessage());
+		} catch (RemoteException e) {
+			System.out.println("#RemoteException (addClient) " + e.getMessage());
+		} catch (BolsaSWSQLExceptionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		// return clientes;
 	}
 
 }
