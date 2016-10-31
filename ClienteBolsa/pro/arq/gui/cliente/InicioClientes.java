@@ -48,11 +48,10 @@ public class InicioClientes {
 					window.frmClientes.setVisible(true);
 					BolsaSWStub stub;
 		        	stub = new BolsaSWStub("http://localhost:8080/axis2/services/BolsaSW");
-		        	Vector<Cliente> clientes = new Vector<Cliente>();
-		        	ObtenerClientes obCl;
+		        	
+		        	ObtenerClientes obCl = new ObtenerClientes();
 		        	ObtenerClientesResponse seResp = stub.obtenerClientes(obCl);
-		        	Vector<Cliente> v = new  Vector<Cliente>();
-		        	v = seResp.get_return();
+		        	pro.arq.dao.clases.xsd.Cliente[] clientes = seResp.get_return();
 		            MiModeloTabla modelo = new MiModeloTabla();
 		            Object client= "Dni";modelo.addColumn(client);
 		            client= "Nombre"; modelo.addColumn(client);
@@ -60,9 +59,9 @@ public class InicioClientes {
 		            client= "Email"; modelo.addColumn(client);
 		            client= "Fecha";modelo.addColumn(client);
 		            int i=0;
-		            int j=v.size();
+		            int j=clientes.length;
 		            while (i<j){
-		            	  		  Cliente cli=v.get(i);
+		            	  		  pro.arq.dao.clases.xsd.Cliente cli= clientes[i];
 		                          String dni=cli.getDni();
 		                          String nom=cli.getNombre();
 		                          String dir=cli.getDireccion();
