@@ -4,31 +4,26 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.GregorianCalendar;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
 
 import org.apache.axis2.AxisFault;
 
 import pro.arq.dao.clases.xsd.Cliente;
-import pro.arq.dao.clases.xsd.MiModeloTabla;
 import pro.arq.service.BolsaSWSQLExceptionException;
 import pro.arq.service.BolsaSWStub;
-import pro.arq.service.ObtenerClientes;
-import pro.arq.service.ObtenerClientesResponse;
-import pro.arq.service.BolsaSWStub;
-
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 
 public class InsertarCliente extends javax.swing.JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JFrame frmAadirCliente;
 	private JTextField textField;
 	private JTextField textField_1;
@@ -164,9 +159,6 @@ public class InsertarCliente extends javax.swing.JFrame {
 			pro.arq.service.InsertarCliente addClient = new pro.arq.service.InsertarCliente();
 			addClient.setCliente(cli);
 
-			// InsertarClienteResponse seResp = stub.insertarCliente(addClient);
-			// pro.arq.dao.clases.xsd.Cliente[] clientes = seResp.get_return();
-
 			stub.insertarCliente(addClient);
 
 		} catch (AxisFault e) {
@@ -174,11 +166,8 @@ public class InsertarCliente extends javax.swing.JFrame {
 		} catch (RemoteException e) {
 			System.out.println("#RemoteException (addClient) " + e.getMessage());
 		} catch (BolsaSWSQLExceptionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("#BolsaSWSQLExceptionException (addClient) " + e.getMessage());
 		}
-
-		// return clientes;
 	}
 
 }
