@@ -5,8 +5,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
 import java.util.Date;
+
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 import org.apache.axis2.AxisFault;
@@ -14,9 +18,6 @@ import org.apache.axis2.AxisFault;
 import pro.arq.dao.clases.xsd.Cliente;
 import pro.arq.service.BolsaSWSQLExceptionException;
 import pro.arq.service.BolsaSWStub;
-import javax.swing.JLabel;
-import javax.swing.JButton;
-import javax.swing.JTextField;
 
 public class InsertarCliente extends javax.swing.JFrame {
 
